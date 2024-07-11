@@ -39,7 +39,7 @@
                     justifyContent="Center"
                     width="100%"
                 >
-                    <Text text="{title}" />
+                    <Text text="{title}" class='list-item-content'/>
                 </VBox>
                 <ToolbarSpacer />
                 <Button
