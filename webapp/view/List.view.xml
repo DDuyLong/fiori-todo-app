@@ -1,0 +1,58 @@
+<mvc:View
+    controllerName="fioritodoapp.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    class="sapUiMedium "
+    xmlns:core="sap.ui.core"
+>
+    <List
+        id="todoList"
+        items="{ path: '/todos', events: { change: '.updateItemsLeftCount' } }"
+        mode="None"
+        growing="true"
+        growingScrollToLoad="true"
+        showNoData="false"
+        showSeparators="None"
+    >
+        <headerToolbar>
+            <OverflowToolbar
+                id="toolbar"
+                visible="{= !${view>/isMobile} }"
+            >
+                <mvc:XMLView viewName="fioritodoapp.view.Filter" />
+            </OverflowToolbar>
+        </headerToolbar>
+        <infoToolbar>
+            <OverflowToolbar
+                visible="{= !!${view>/filterText} }"
+                active="false"
+            >
+                <Label text="{view>/filterText}" />
+            </OverflowToolbar>
+        </infoToolbar>
+        <CustomListItem>
+            <HBox>
+                <CheckBox selected="{completed}" />
+                <VBox justifyContent="Center">
+                    <Text text="{title}" />
+                </VBox>
+                <Button text="delete" press=".onOpenDailog"/>
+            </HBox>
+            <customData>
+                <core:CustomData
+                    key="todo-item-completed"
+                    value="{title}"
+                    writeToDom="true"
+                />
+            </customData>
+            <customData>
+                <core:CustomData
+                    key="todo-item-completed"
+                    value="{= String(${completed})}"
+                    writeToDom="true"
+                />
+            </customData>
+        </CustomListItem>
+    </List>
+</mvc:View>

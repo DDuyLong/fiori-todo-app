@@ -1,0 +1,46 @@
+/* Enter your custom styles here */
+.todoContainer {
+    padding: 20px;
+}
+
+.todoInput {
+    margin-bottom: 10px;
+}
+
+.todoButton {
+    margin-bottom: 20px;
+}
+
+.todoList {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.todoListItem {
+    border-bottom: 1px solid #ddd;
+}
+
+.todoItemBox {
+    display: flex;
+    align-items: center;
+}
+
+.todoCheckBox {
+    margin-right: 10px;
+}
+
+.todoText {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+li[data-todo-item-completed="true"] span {
+	text-decoration: line-through;
+}
+
+.test {
+    display: flex;
+}

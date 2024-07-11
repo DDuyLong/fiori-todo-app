@@ -1,0 +1,16 @@
+<mvc:View
+    controllerName="fioritodoapp.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    class="sapUiMedium "
+>
+    <Input
+        class="todoInput"
+        id="addTodoItemInput"
+        placeholder="What needs to be done"
+        change=".addTodo"
+        value="{/newTodo}"
+        valueLiveUpdate="true"
+    />
+</mvc:View>

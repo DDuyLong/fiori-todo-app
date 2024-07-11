@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core">
+   <Dialog
+      id="deleteItemDialog"
+      title ="Delete item">
+       <content>
+        <Label text="Do you want delete this {/deleteTodo/title} ?"></Label>
+      </content>
+      <endButton>
+      <Button text="Yes" press=".onDeleteItem"/>
+      </endButton>
+      <beginButton>
+         <Button
+            text="No"
+            press=".onCloseDialog"/>
+            
+      </beginButton>
+      
+   </Dialog>
+</core:FragmentDefinition>

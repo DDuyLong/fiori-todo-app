@@ -1,0 +1,66 @@
+<mvc:View
+    controllerName="fioritodoapp.controller.App"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+>
+    <App>
+        <Page>
+            <customHeader>
+                <f:ShellBar
+                    title="TodoLsit"
+                />
+            </customHeader>
+            <content>
+                <f:DynamicPage>
+                    <f:header>
+                        <f:DynamicPageHeader pinnable="false">
+                            <mvc:XMLView viewName="fioritodoapp.view.Input" />
+                        </f:DynamicPageHeader>
+                    </f:header>
+                    <f:content>
+                        <mvc:XMLView viewName="fioritodoapp.view.List" />
+                    </f:content>
+                </f:DynamicPage>
+            </content>
+            <!-- <footer>
+            <OverflowToolbar
+                    id="toolbar-footer"
+                    visible="{= !!${view>/isMobile} }"
+                >
+                    <SegmentedButton
+                        selectedKey="all"
+                        selectionChange=".onFilter"
+                        class="sapMSegmentedButtonNoAutoWidth"
+                    >
+                        <items>
+                            <SegmentedButtonItem
+                                text="All"
+                                key="all"
+                            />
+                            <SegmentedButtonItem
+                                text="Active"
+                                key="active"
+                            />
+                            <SegmentedButtonItem
+                                text="Completed"
+                                key="completed"
+                            />
+                        </items>
+                    </SegmentedButton>
+                    <ToolbarSpacer />
+                    <Button
+                        id="clearCompleted-footer"
+                        enabled="{/itemsRemovable}"
+                        icon="sap-icon://delete"
+                        text="{i18n>CLEAR_COMPLETED}"
+                        press=".clearCompleted"
+                    />
+                </OverflowToolbar>
+            </footer> -->
+        </Page>
+    </App>
+</mvc:View>
