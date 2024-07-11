@@ -1,5 +1,5 @@
 /*global QUnit*/
-import Controller from "fioritodoapp/controller/Main.controller";
+import Controller from "fioritodoapp/controller/App.controller";
 
 QUnit.module("Main Controller");
 

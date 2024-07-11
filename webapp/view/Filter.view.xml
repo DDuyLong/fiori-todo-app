@@ -3,7 +3,6 @@
     xmlns:mvc="sap.ui.core.mvc"
     displayBlock="true"
     xmlns="sap.m"
-    class="sapUiMedium "
 >
     <SearchField
         id="searchTodoItemsInput"

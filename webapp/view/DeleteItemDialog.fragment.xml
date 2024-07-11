@@ -5,7 +5,7 @@
       id="deleteItemDialog"
       title ="Delete item">
        <content>
-        <Label text="Do you want delete this {/deleteTodo/title} ?"></Label>
+        <Label text="Do you want delete this {/deleteTodo/title} ?" class='lable-dailog'></Label>
       </content>
       <endButton>
       <Button text="Yes" press=".onDeleteItem"/>

@@ -18,6 +18,7 @@
         <headerToolbar>
             <OverflowToolbar
                 id="toolbar"
+                class="sapUiSizeCompact"
                 visible="{= !${view>/isMobile} }"
             >
                 <mvc:XMLView viewName="fioritodoapp.view.Filter" />
@@ -34,10 +35,17 @@
         <CustomListItem>
             <HBox>
                 <CheckBox selected="{completed}" />
-                <VBox justifyContent="Center">
+                <VBox
+                    justifyContent="Center"
+                    width="100%"
+                >
                     <Text text="{title}" />
                 </VBox>
-                <Button text="delete" press=".onOpenDailog"/>
+                <ToolbarSpacer />
+                <Button
+                    text="delete"
+                    press=".onOpenDailog"
+                />
             </HBox>
             <customData>
                 <core:CustomData
