@@ -10,9 +10,7 @@
     <App>
         <Page>
             <customHeader>
-                <f:ShellBar
-                    title="TodoLsit"
-                />
+                <f:ShellBar title="TodoLsit" />
             </customHeader>
             <content>
                 <f:DynamicPage>

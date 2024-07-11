@@ -109,39 +109,26 @@ export default class App extends BaseController {
   }
 
   public onFilter(event: any) {
-    const model = this.getModel();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    const todos: Todo[] = model.getProperty("/todos");
-    this.tabFilters = [];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-    this.filterKey = event?.getParameter("item")?.getKey();
-    switch (this.filterKey) {
-      case "active":
-        model.setProperty("/todoClone", todos);
-        model.setProperty(
-          "/todoClone",
-          todos.filter((e) => e.completed === false)
-        );
-        break;
-      case "completed":
-        model.setProperty("/todoClone", todos);
-        model.setProperty(
-          "/todoClone",
-          todos.filter((e) => e.completed === true)
-        );
-        break;
-      case "all":
-        model.setProperty("/todoClone", todos);
-      default:
-    }
+		this.tabFilters = [];
+		this.filterKey = event.getParameter("item").getKey();
+		// eslint-disable-line default-case
+		switch (this.filterKey) {
+			case "active":
+				this.tabFilters.push(new Filter("completed", FilterOperator.EQ, false));
+				break;
+			case "completed":
+				this.tabFilters.push(new Filter("completed", FilterOperator.EQ, true));
+				break;
+			case "all":
+			default:
+		}
 
-    this._applyListFilters();
-  }
+		this._applyListFilters();
+	}
 
   public _applyListFilters(): void {
     const list = this.byId("todoList") as List;
     const binding = list.getBinding("items") as ListBinding;
-
     binding.filter(
       this.searchFilters.concat(this.tabFilters),
       "todos" as FilterType
@@ -179,8 +166,6 @@ export default class App extends BaseController {
     }));
     this.dialog.open();
     const todo = e.getSource()?.getBindingContext()?.getObject() as Todo;
-    console.log(todo);
-
     model.setProperty("/deleteTodo", todo);
   }
 
@@ -197,7 +182,9 @@ export default class App extends BaseController {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const todo = model.getProperty("/deleteTodo");
     const newTodos = todos.filter((e) => e.id !== todo.id);
+    model.setProperty("/todoClone", newTodos);
     model.setProperty("/todos", newTodos);
+
     (<Dialog>this.byId("deleteItemDialog"))?.close();
   }
 }

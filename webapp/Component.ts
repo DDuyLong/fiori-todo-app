@@ -22,13 +22,7 @@ export default class Component extends BaseComponent {
 
     const data = {
       newTodo: "",
-      todos: [
-        {
-          id: 1,
-          title: "di chơi",
-          completed: false,
-        },
-      ],
+      todos: [],
       deleteTodo: {
         id: 1,
         title: "di chơi",
@@ -36,13 +30,7 @@ export default class Component extends BaseComponent {
       },
       itemsRemovable: true,
       completedCount: 1,
-      todoClone : [
-        {
-          id: 1,
-          title: "di chơi",
-          completed: false,
-        },
-      ]
+      todoClone: [],
     };
 
     const dataModel = new JSONModel(data);

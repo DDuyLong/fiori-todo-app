@@ -8,7 +8,7 @@
 >
     <List
         id="todoList"
-        items="{ path: '/todoClone', events: { change: '.updateItemsLeftCount' } }"
+        items="{ path: '/todos', events: { change: '.updateItemsLeftCount' } }"
         mode="None"
         growing="true"
         growingScrollToLoad="true"
