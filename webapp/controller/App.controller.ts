@@ -55,6 +55,7 @@ export default class App extends BaseController {
     });
 
     model.setProperty("/todos", todos);
+    model.setProperty("/todoClone", todos);
     model.setProperty("/newTodo", "");
   }
 
@@ -108,18 +109,29 @@ export default class App extends BaseController {
   }
 
   public onFilter(event: any) {
+    const model = this.getModel();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const todos: Todo[] = model.getProperty("/todos");
     this.tabFilters = [];
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     this.filterKey = event?.getParameter("item")?.getKey();
-
     switch (this.filterKey) {
       case "active":
-        this.tabFilters.push(new Filter("completed", FilterOperator.EQ, false));
+        model.setProperty("/todoClone", todos);
+        model.setProperty(
+          "/todoClone",
+          todos.filter((e) => e.completed === false)
+        );
         break;
       case "completed":
-        this.tabFilters.push(new Filter("completed", FilterOperator.EQ, true));
+        model.setProperty("/todoClone", todos);
+        model.setProperty(
+          "/todoClone",
+          todos.filter((e) => e.completed === true)
+        );
         break;
       case "all":
+        model.setProperty("/todoClone", todos);
       default:
     }
 
@@ -168,7 +180,7 @@ export default class App extends BaseController {
     this.dialog.open();
     const todo = e.getSource()?.getBindingContext()?.getObject() as Todo;
     console.log(todo);
-    
+
     model.setProperty("/deleteTodo", todo);
   }
 

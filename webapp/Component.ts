@@ -36,6 +36,13 @@ export default class Component extends BaseComponent {
       },
       itemsRemovable: true,
       completedCount: 1,
+      todoClone : [
+        {
+          id: 1,
+          title: "di chơi",
+          completed: false,
+        },
+      ]
     };
 
     const dataModel = new JSONModel(data);
