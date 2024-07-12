@@ -16,15 +16,113 @@
                 <f:DynamicPage>
                     <f:header>
                         <f:DynamicPageHeader pinnable="false">
-                            <mvc:XMLView viewName="fioritodoapp.view.Input" />
+                            <Input
+                                class="todoInput"
+                                id="addTodoItemInput"
+                                placeholder="What needs to be done"
+                                change=".addTodo"
+                                value="{/newTodo}"
+                                valueLiveUpdate="true"
+                            />
                         </f:DynamicPageHeader>
                     </f:header>
                     <f:content>
-                        <mvc:XMLView viewName="fioritodoapp.view.List" />
+                        <List
+                            id="listTodo"
+                            items="{ path: '/todos', events: { change: '.updateItemsLeftCount' } }"
+                            mode="None"
+                            growing="true"
+                            growingScrollToLoad="true"
+                            showNoData="false"
+                            showSeparators="None"
+                        >
+                            <headerToolbar>
+                                <OverflowToolbar
+                                    id="toolbar"
+                                    class="sapUiSizeCompact"
+                                    visible="{= !${view>/isMobile} }"
+                                >
+                                    <SearchField
+                                        id="searchTodoItemsInput"
+                                        liveChange=".onSearch"
+                                        width="20rem"
+                                    />
+                                    <SegmentedButton
+                                        selectedKey="all"
+                                        selectionChange=".onFilter"
+                                        class="sapMSegmentedButtonNoAutoWidth"
+                                    >
+                                        <items>
+                                            <SegmentedButtonItem
+                                                text="All"
+                                                key="all"
+                                            />
+                                            <SegmentedButtonItem
+                                                text="Active"
+                                                key="active"
+                                            />
+                                            <SegmentedButtonItem
+                                                text="Completed"
+                                                key="completed"
+                                            />
+                                        </items>
+                                    </SegmentedButton>
+
+                                    <Button
+                                        id="clearCompleted"
+                                        enabled="{/itemsRemovable}"
+                                        icon="sap-icon://delete"
+                                        text="{i18n>CLEAR_COMPLETED}"
+                                        press=".clearCompleted"
+                                    />
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <infoToolbar>
+                                <OverflowToolbar
+                                    visible="{= !!${view>/filterText} }"
+                                    active="false"
+                                >
+                                    <Label text="{view>/filterText}" />
+                                </OverflowToolbar>
+                            </infoToolbar>
+                            <CustomListItem>
+                                <HBox>
+                                    <CheckBox selected="{completed}" />
+                                    <VBox
+                                        justifyContent="Center"
+                                        width="100%"
+                                    >
+                                        <Text
+                                            text="{title}"
+                                            class='list-item-content'
+                                        />
+                                    </VBox>
+                                    <ToolbarSpacer />
+                                    <Button
+                                        text="delete"
+                                        press=".onOpenDailog"
+                                    />
+                                </HBox>
+                                <customData>
+                                    <core:CustomData
+                                        key="todo-item-completed"
+                                        value="{title}"
+                                        writeToDom="true"
+                                    />
+                                </customData>
+                                <customData>
+                                    <core:CustomData
+                                        key="todo-item-completed"
+                                        value="{= String(${completed})}"
+                                        writeToDom="true"
+                                    />
+                                </customData>
+                            </CustomListItem>
+                        </List>
                     </f:content>
                 </f:DynamicPage>
             </content>
-            <!-- <footer>
+            <footer>
             <OverflowToolbar
                     id="toolbar-footer"
                     visible="{= !!${view>/isMobile} }"
@@ -58,7 +156,7 @@
                         press=".clearCompleted"
                     />
                 </OverflowToolbar>
-            </footer> -->
+            </footer>
         </Page>
     </App>
 </mvc:View>

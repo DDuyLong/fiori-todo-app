@@ -55,7 +55,6 @@ export default class App extends BaseController {
     });
 
     model.setProperty("/todos", todos);
-    model.setProperty("/todoClone", todos);
     model.setProperty("/newTodo", "");
   }
 
@@ -110,6 +109,7 @@ export default class App extends BaseController {
 
   public onFilter(event: any) {
 		this.tabFilters = [];
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
 		this.filterKey = event.getParameter("item").getKey();
 		// eslint-disable-line default-case
 		switch (this.filterKey) {
@@ -127,7 +127,7 @@ export default class App extends BaseController {
 	}
 
   public _applyListFilters(): void {
-    const list = this.byId("todoList") as List;
+    const list = this.byId("listTodo") as List;
     const binding = list.getBinding("items") as ListBinding;
     binding.filter(
       this.searchFilters.concat(this.tabFilters),
@@ -182,7 +182,6 @@ export default class App extends BaseController {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const todo = model.getProperty("/deleteTodo");
     const newTodos = todos.filter((e) => e.id !== todo.id);
-    model.setProperty("/todoClone", newTodos);
     model.setProperty("/todos", newTodos);
 
     (<Dialog>this.byId("deleteItemDialog"))?.close();
