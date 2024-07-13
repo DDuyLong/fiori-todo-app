@@ -1,6 +1,5 @@
 import BaseComponent from "sap/ui/core/UIComponent";
 import { createDeviceModel } from "./model/models";
-import JSONModel from "sap/ui/model/json/JSONModel";
 
 /**
  * @namespace fioritodoapp
@@ -20,21 +19,21 @@ export default class Component extends BaseComponent {
     // call the base component's init function
     super.init();
 
-    const data = {
-      newTodo: "",
-      todos: [],
-      deleteTodo: {
-        id: 1,
-        title: "di chơi",
-        completed: false,
-      },
-      itemsRemovable: true,
-      completedCount: 1,
-      todoClone: [],
-    };
+    // const data = {
+    //   newTodo: "",
+    //   todos: [],
+    //   deleteTodo: {
+    //     id: 1,
+    //     title: "di chơi",
+    //     completed: false,
+    //   },
+    //   itemsRemovable: true,
+    //   completedCount: 1,
+    //   todoClone: [],
+    // };
 
-    const dataModel = new JSONModel(data);
-    this.setModel(dataModel);
+    // const dataModel = new JSONModel(data);
+    // this.setModel(dataModel);
 
     // enable routing
     this.getRouter().initialize();

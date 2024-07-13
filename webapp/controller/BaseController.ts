@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import Controller from "sap/ui/core/mvc/Controller";
 import AppComponent from "../Component";
 import Model from "sap/ui/model/Model";

@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import ResourceBundle from "sap/base/i18n/ResourceBundle";
 import List from "sap/m/List";
 import { SearchField$ChangeEvent } from "sap/m/SearchField";
@@ -12,11 +11,19 @@ import Device from "sap/ui/Device";
 import JSONModel from "sap/ui/model/json/JSONModel";
 import { Button$PressEvent } from "sap/m/Button";
 import Dialog from "sap/m/Dialog";
+import { SegmentedButton$SelectionChangeEvent } from "sap/m/SegmentedButton";
 type Todo = {
   id: number;
   title: string;
   completed: boolean;
 };
+
+enum FilterKey {
+  Active = "active",
+  Completed = "completed",
+  All = "all",
+}
+
 export default class listController extends BaseController {
 
   private dialog: Dialog;
@@ -33,17 +40,17 @@ export default class listController extends BaseController {
     this.setModel(
       new JSONModel({
         isMobile: Device.browser.mobile,
-        filterText: undefined,
+        filterText: undefined
       }),
       "view"
     );
   }
 
   public clearCompleted(): void {
-    const model = this.getModel();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    const todos: Todo[] = model
-      .getProperty("/todos")
+    const model: JSONModel = this.getModel();
+    
+    const todos: Todo[] =( <Todo[]>model
+      .getProperty("/todos"))
       .map((todo: Todo) => Object.assign({}, todo));
     let i = todos.length;
     while (i--) {
@@ -58,8 +65,7 @@ export default class listController extends BaseController {
 
   public updateItemsLeftCount(): void {
     const model = this.getModel();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const todos: Todo[] = model.getProperty("/todos") || [];
+    const todos: Todo[] = <Todo[]>model.getProperty("/todos") || [];
 
     const itemsLeft = todos.filter((todo: Todo) => !todo.completed).length;
 
@@ -71,8 +77,6 @@ export default class listController extends BaseController {
     const input = event.getSource();
 
     this.searchFilters = [];
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     this.searchQuery = input.getValue();
     if (this.searchQuery && this.searchQuery.length > 0) {
       model.setProperty("/itemsRemovable", false);
@@ -88,11 +92,9 @@ export default class listController extends BaseController {
     this._applyListFilters();
   }
 
-  public onFilter(event: any) {
+  public onFilter(event: SegmentedButton$SelectionChangeEvent) {
     this.tabFilters = [];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    this.filterKey = event.getParameter("item").getKey();
-    // eslint-disable-line default-case
+    this.filterKey = event.getParameter("item")?.getKey() as FilterKey;
     switch (this.filterKey) {
       case "active":
         this.tabFilters.push(new Filter("completed", FilterOperator.EQ, false));
@@ -143,7 +145,7 @@ export default class listController extends BaseController {
   public async onOpenDailog(e: Button$PressEvent): Promise<void> {
     const model = this.getModel();
     this.dialog ??= await (<Promise<Dialog>>this.loadFragment({
-      name: "fioritodoapp.view.DeleteItemDialog",
+      name: "fioritodoapp.view.DeleteItemDialog"
     }));
     this.dialog.open();
     const todo = e.getSource()?.getBindingContext()?.getObject() as Todo;
@@ -156,14 +158,12 @@ export default class listController extends BaseController {
 
   public onDeleteItem(): void {
     const model = this.getModel();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-    const todos: Todo[] = model
-      .getProperty("/todos")
+    const todos: Todo[] = (<Todo[]>model
+      .getProperty("/todos"))
       .map((todo: Todo) => Object.assign({}, todo));
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const todo = model.getProperty("/deleteTodo");
-    const newTodos = todos.filter((e) => e.id !== todo.id);
-    model.setProperty("/todos", newTodos);
+    const todo = <Todo>model.getProperty("/deleteTodo");
+    const todoFilters = todos.filter((item) => item.id !== todo.id);
+    model.setProperty("/todos", todoFilters);
 
     (<Dialog>this.byId("deleteItemDialog"))?.close();
   }
