@@ -1,0 +1,92 @@
+<mvc:View
+    controllerName="fioritodoapp.controller.List"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <List
+        id="listTodo"
+        items="{ path: '/todos', events: { change: '.updateItemsLeftCount' } }"
+        mode="None"
+        growing="true"
+        growingScrollToLoad="true"
+        showNoData="false"
+        showSeparators="None"
+    >
+        <headerToolbar>
+            <OverflowToolbar
+                id="toolbar"
+                visible="{= !${view>/isMobile} }"
+            >
+                <SearchField
+                    id="searchTodoItemsInput"
+                    liveChange=".onSearch"
+                    width="20rem"
+                />
+                <SegmentedButton
+                    selectedKey="all"
+                    selectionChange=".onFilter"
+                    class="sapMSegmentedButtonNoAutoWidth"
+                >
+                    <items>
+                        <SegmentedButtonItem
+                            text="All"
+                            key="all"
+                        />
+                        <SegmentedButtonItem
+                            text="Active"
+                            key="active"
+                        />
+                        <SegmentedButtonItem
+                            text="Completed"
+                            key="completed"
+                        />
+                    </items>
+                </SegmentedButton>
+
+                <Button
+                    id="clearCompleted"
+                    enabled="{/itemsRemovable}"
+                    icon="sap-icon://delete"
+                    text="{i18n>CLEAR_COMPLETED}"
+                    press=".clearCompleted"
+                />
+            </OverflowToolbar>
+        </headerToolbar>
+        <infoToolbar>
+            <OverflowToolbar
+                visible="{= !!${view>/filterText} }"
+                active="false"
+            >
+                <Label text="{view>/filterText}" />
+            </OverflowToolbar>
+        </infoToolbar>
+        <CustomListItem>
+            <HBox>
+                <CheckBox selected="{completed}" />
+                <VBox justifyContent="Center">
+                    <Text text="{title}" />
+                </VBox>
+                <Button
+                    text="delete"
+                    press=".onOpenDailog"
+                />
+            </HBox>
+            <customData>
+                <core:CustomData
+                    key="todo-item-completed"
+                    value="{title}"
+                    writeToDom="true"
+                />
+            </customData>
+            <customData>
+                <core:CustomData
+                    key="todo-item-completed"
+                    value="{= String(${completed})}"
+                    writeToDom="true"
+                />
+            </customData>
+        </CustomListItem>
+    </List>
+</mvc:View>

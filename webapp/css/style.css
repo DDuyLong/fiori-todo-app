@@ -8,16 +8,7 @@ li[data-todo-item-completed="true"] .list-item-content {
     padding-left: 8px;
 }
 
-.sapMIBar.sapMTB .sapMBarChild.sapMBarChildFirstChild {
-    display: flex;
-    justify-content: flex-end;
-}
 
-.sapUiSizeCompact .sapMInputBase:not(.sapMInputBaseHasEndIcons):not(.sapMInputBaseHasBeginIcons) .sapMInputBaseContentWrapper {
-    height: 36px;
-}
 
-.sapUiSizeCompact .sapMSF {
-    padding: 0.1875rem 8px;
-}
+
 
