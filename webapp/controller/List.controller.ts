@@ -31,7 +31,7 @@ export default class listController extends BaseController {
   searchFilters: Filter[];
   tabFilters: Filter[];
   searchQuery: string;
-  filterKey: "active" | "completed" | "all";
+  filterKey: FilterKey;
   
   public onInit(): void {
     this.searchFilters = [];
@@ -96,13 +96,13 @@ export default class listController extends BaseController {
     this.tabFilters = [];
     this.filterKey = event.getParameter("item")?.getKey() as FilterKey;
     switch (this.filterKey) {
-      case "active":
+      case FilterKey.Active:
         this.tabFilters.push(new Filter("completed", FilterOperator.EQ, false));
         break;
-      case "completed":
+      case FilterKey.Completed:
         this.tabFilters.push(new Filter("completed", FilterOperator.EQ, true));
         break;
-      case "all":
+      case FilterKey.All:
       default:
     }
 
@@ -118,8 +118,8 @@ export default class listController extends BaseController {
     );
 
     let i18nKey;
-    if (this.filterKey && this.filterKey !== "all") {
-      if (this.filterKey === "active") {
+    if (this.filterKey && this.filterKey !== FilterKey.All) {
+      if (this.filterKey === FilterKey.Active) {
         i18nKey = "ACTIVE_ITEMS";
       } else {
         i18nKey = "COMPLETED_ITEMS";
